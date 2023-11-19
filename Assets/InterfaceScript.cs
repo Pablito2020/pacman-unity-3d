@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InterfaceScript : MonoBehaviour
 {
-    Animator _animator;
-    private Rigidbody _rb;
     private const float RotationSpeed = 3.0f;
-    
+    private Animator _animator;
+    private Rigidbody _rb;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Rotate();
         Walk();
     }
 
-    void Rotate()
+    private void Rotate()
     {
         _rb.angularVelocity = getAngularRotation();
     }
@@ -34,12 +32,12 @@ public class InterfaceScript : MonoBehaviour
         if (IsRotatingRight()) return new Vector3(0.0f, RotationSpeed, 0.0f);
         return Vector3.zero;
     }
-    
+
     private static bool IsRotatingLeft()
     {
         return Input.GetKey("a");
     }
-    
+
     private static bool IsRotatingRight()
     {
         return Input.GetKey("d");
