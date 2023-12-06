@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using board;
 using game;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ui

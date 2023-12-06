@@ -5,7 +5,7 @@ namespace ui
 {
     public static class CellPositionCalculator
     {
-        private const int CellSize = 3;
+        private const int CellSize = 8;
         private const int CellHeight = 8;
 
         public static Vector3 From(Position position, Rectangle board)
@@ -38,8 +38,7 @@ namespace ui
         {
             var column = position.Column * CellSize + (CellSize / 2);
             var row = position.Row * CellSize + (CellSize / 2);
-            // TODO: delete column + 1 and row + 1
-            return new Vector3(column + 1, 1, row + 1);
+            return new Vector3(column, 1, row);
         }
     }
 }

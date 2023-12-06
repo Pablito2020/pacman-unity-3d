@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InterfaceScript : MonoBehaviour
 {
-    private const float RotationSpeed = 25.0f;
+    private const float RotationSpeed = 50.0f;
     private const float WalkSpeed = 5.0f;
     
     private Animator _animator;
