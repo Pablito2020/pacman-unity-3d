@@ -1,16 +1,17 @@
+using System;
 using UnityEngine;
 
 public class InterfaceScript : MonoBehaviour
 {
-    private const float RotationSpeed = 3.0f;
+    private const float RotationSpeed = 25.0f;
+    private const float WalkSpeed = 5.0f;
+    
     private Animator _animator;
-    private Rigidbody _rb;
 
     // Start is called before the first frame update
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -22,32 +23,20 @@ public class InterfaceScript : MonoBehaviour
 
     private void Rotate()
     {
-        _rb.angularVelocity = getAngularRotation();
+        transform.Rotate(getAngularRotation());
     }
 
 
     private Vector3 getAngularRotation()
     {
-        if (IsRotatingLeft()) return new Vector3(0.0f, -RotationSpeed, 0.0f);
-        if (IsRotatingRight()) return new Vector3(0.0f, RotationSpeed, 0.0f);
-        return Vector3.zero;
+        var x = Input.GetAxis("Horizontal");
+        return new Vector3(0, x * Time.deltaTime * RotationSpeed, 0);
     }
-
-    private static bool IsRotatingLeft()
-    {
-        return Input.GetKey("a");
-    }
-
-    private static bool IsRotatingRight()
-    {
-        return Input.GetKey("d");
-    }
-
 
     private void Walk()
     {
-        if (IsGoingForward())
-            _rb.velocity = 5.0f * transform.forward;
+        var y = Input.GetAxis("Vertical");
+        transform.Translate(0, 0, y* Time.deltaTime * WalkSpeed);
         _animator.SetBool("isWalking", IsGoingForward());
     }
 

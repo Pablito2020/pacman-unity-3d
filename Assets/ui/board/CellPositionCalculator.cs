@@ -38,7 +38,8 @@ namespace ui
         {
             var column = position.Column * CellSize + (CellSize / 2);
             var row = position.Row * CellSize + (CellSize / 2);
-            return new Vector3(column, 1, row);
+            // TODO: delete column + 1 and row + 1
+            return new Vector3(column + 1, 1, row + 1);
         }
     }
 }

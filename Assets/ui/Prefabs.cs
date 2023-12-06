@@ -6,14 +6,14 @@ namespace ui
     public class Prefabs
     {
         public readonly GameObject BigFood;
-        public readonly GameObject Corridor;
+        public readonly Plane Corridor;
         public readonly Action<GameObject> Destroy;
         public readonly GameObject Food;
         public readonly Func<GameObject, GameObject> Instantiate;
         public readonly Transform Player;
         public readonly GameObject Wall;
 
-        public Prefabs(GameObject corridor, GameObject wall, GameObject food, GameObject bigFood, Transform player,
+        public Prefabs(Plane corridor, GameObject wall, GameObject food, GameObject bigFood, Transform player,
             Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
         {
             Corridor = corridor;

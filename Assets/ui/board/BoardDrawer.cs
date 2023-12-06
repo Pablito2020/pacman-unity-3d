@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using board;
 using game;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ui
@@ -13,7 +14,6 @@ namespace ui
         private readonly Board board;
         private readonly List<List<GameObject>> cells = new();
         private readonly Prefabs prefabs;
-        private GameObject? floor;
 
         public BoardDrawer(Prefabs prefabs, Game game)
         {
@@ -30,11 +30,7 @@ namespace ui
         private void AddFloor(GameObject gameObject)
         {
             var boardSize = board.GetRectangleOfBoard();
-            floor = prefabs.Instantiate(prefabs.Corridor);
-            floor.transform.position = CellPositionCalculator.FromFloor(new Position(0, 0), boardSize);
-            floor.transform.localScale = CellPositionCalculator.getBoardSize(boardSize);
-            floor.SetActive(true);
-            floor.transform.parent = gameObject.transform;
+            prefabs.Corridor.Translate(CellPositionCalculator.FromFloor(new Position(0, 0), boardSize));
         }
 
         private void AddBoard(GameObject gameObject)
@@ -63,7 +59,8 @@ namespace ui
             prefabsFromCell.SetActive(true);
             var prefabPosition = CellPositionCalculator.From(position, boardSize);
             prefabsFromCell.transform.position = prefabPosition;
-            prefabsFromCell.transform.localScale = CellPositionCalculator.getBlockSize(boardSize);
+            if (cell == Cell.WALL)
+                prefabsFromCell.transform.localScale = CellPositionCalculator.getBlockSize(boardSize);
             prefabsFromCell.transform.parent = gameObjectAttached.transform;
             return prefabsFromCell;
         }
@@ -84,8 +81,6 @@ namespace ui
         {
             cells.ForEach(row => row.ForEach(cell => prefabs.Destroy(cell)));
             cells.Clear();
-            prefabs.Destroy(floor);
-            floor = null;
         }
     }
 }

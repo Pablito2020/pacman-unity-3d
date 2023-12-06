@@ -15,7 +15,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] public float WALK_THRESHOLD = 0.5f;
 
 
-    [SerializeField] public GameObject corridorSquare;
+    [SerializeField] public Plane corridorSquare;
     [SerializeField] public GameObject wallSquare;
     [SerializeField] public GameObject foodSquare;
     [SerializeField] public GameObject bigFood;
@@ -26,7 +26,6 @@ public class GameUI : MonoBehaviour
 
     private void Start()
     {
-        corridorSquare.SetActive(false);
         wallSquare.SetActive(false);
         foodSquare.SetActive(false);
         bigFood.SetActive(false);
