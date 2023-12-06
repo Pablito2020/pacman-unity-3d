@@ -30,5 +30,15 @@ namespace ui
             player.position =
                 CellPositionCalculator.GetCameraFrom(_game.GetPacmanPosition(), _game.GetBoard().GetRectangleOfBoard());
         }
+
+        public int GetFood()
+        {
+            return _game.GetFood();
+        }
+
+        public int GetBigFood()
+        {
+            return _game.GetBigFood();
+        }
     }
 }

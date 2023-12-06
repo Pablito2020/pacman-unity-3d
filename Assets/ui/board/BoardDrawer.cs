@@ -56,7 +56,9 @@ namespace ui
             var prefabsFromCell = GetPrefab(cell);
             if (prefabsFromCell == null) return null;
             prefabsFromCell.SetActive(true);
-            var prefabPosition = CellPositionCalculator.From(position, boardSize);
+            var prefabPosition = cell == Cell.WALL
+                ? CellPositionCalculator.From(position, boardSize)
+                : CellPositionCalculator.FromFruit(position, boardSize);
             prefabsFromCell.transform.position = prefabPosition;
             if (cell == Cell.WALL)
                 prefabsFromCell.transform.localScale = CellPositionCalculator.getBlockSize(boardSize);

@@ -1,3 +1,4 @@
+using System.Linq;
 using board;
 using game.initializers;
 
@@ -46,6 +47,16 @@ namespace game
         public Board GetBoard()
         {
             return _state.GetBoard();
+        }
+
+        public int GetFood()
+        {
+            return _state.GetBoard().GetCells().SelectMany(row => row).Count(cell => cell == Cell.FOOD);
+        }
+
+        public int GetBigFood()
+        {
+            return _state.GetBoard().GetCells().SelectMany(row => row).Count(cell => cell == Cell.BIG_FOOD);
         }
 
         public Direction GetCurrentDirection()

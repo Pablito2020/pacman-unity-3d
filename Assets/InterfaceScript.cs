@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 
 public class InterfaceScript : MonoBehaviour
 {
     private const float RotationSpeed = 50.0f;
     private const float WalkSpeed = 5.0f;
-    
+
     private Animator _animator;
 
     // Start is called before the first frame update
@@ -36,7 +35,7 @@ public class InterfaceScript : MonoBehaviour
     private void Walk()
     {
         var y = Input.GetAxis("Vertical");
-        transform.Translate(0, 0, y* Time.deltaTime * WalkSpeed);
+        transform.Translate(0, 0, y * Time.deltaTime * WalkSpeed);
         _animator.SetBool("isWalking", IsGoingForward());
     }
 

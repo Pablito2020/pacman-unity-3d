@@ -1,3 +1,4 @@
+using System;
 using agent;
 using board;
 using JetBrains.Annotations;
@@ -13,9 +14,6 @@ public class GameUI : MonoBehaviour
     [SerializeField] public int INITIAL_DONUT_WIDTH = 3;
     [SerializeField] public int INITIAL_DONUT_HEIGHT = 3;
     [SerializeField] public float WALK_THRESHOLD = 0.5f;
-
-
-    [SerializeField] public Plane corridorSquare;
     [SerializeField] public GameObject wallSquare;
     [SerializeField] public GameObject foodSquare;
     [SerializeField] public GameObject bigFood;
@@ -23,6 +21,14 @@ public class GameUI : MonoBehaviour
 
     [CanBeNull] private GameDrawer _game;
     private Prefabs _prefabs;
+
+
+    private int bigFoodEaten;
+
+
+    [SerializeField] public Plane corridorSquare;
+    private int foodEaten;
+
 
     private void Start()
     {
@@ -32,11 +38,14 @@ public class GameUI : MonoBehaviour
         _prefabs = new Prefabs(corridorSquare, wallSquare, foodSquare, bigFood, player, InstantiateObject,
             DestroyObject);
         GenerateGame();
+        Fruit.OnFruitEaten += () => { foodEaten += 1; Debug.LogWarning("Counter: " + foodEaten +  " game: " + _game.GetFood());};
+        BigFruit.OnBigFruitEaten += () => { bigFoodEaten += 1; Debug.LogWarning("Counter: " + bigFoodEaten +  " game: " + _game.GetBigFood());};
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) GenerateGame();
+        if (bigFoodEaten == _game.GetBigFood() && foodEaten == _game.GetFood()) GenerateGame();
     }
 
     private void GenerateGame()
@@ -45,6 +54,8 @@ public class GameUI : MonoBehaviour
         var maze = GetRandomMaze();
         _game = new GameDrawer(_prefabs, maze);
         _game.StartNewGame(gameObject);
+        foodEaten = 0;
+        bigFoodEaten = 0;
     }
 
     private Maze GetRandomMaze()
