@@ -52,7 +52,7 @@ public class GameUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) GenerateGame();
-        if (bigFoodEaten == _game.GetBigFood() && foodEaten == _game.GetFood()) GenerateGame();
+        if (_game != null && bigFoodEaten == _game.GetBigFood() && foodEaten == _game.GetFood()) GenerateGame();
     }
 
     private void GenerateGame()

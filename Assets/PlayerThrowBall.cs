@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +7,9 @@ public class PlayerThrowBall : MonoBehaviour
 {
     public GameObject ball;
     public Transform cam;
-    private readonly float ballForce = 10f;
+    private readonly float ballForce = 600f;
     private Animator _animator;
+    private bool isThrowing = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -20,39 +22,44 @@ public class PlayerThrowBall : MonoBehaviour
     {
         if (Input.GetKeyDown("f") && !_animator.GetBool("isThrowing"))
         {
-            var newBall = Instantiate(ball);
-            newBall.SetActive(true);
-            var newRb = newBall.GetComponent<Rigidbody>();
-            // TODO: This 3.78 is a hack about where is the camera position
-            ball.transform.position = cam.position + new Vector3(0, 0, 3.78f);
-            newRb.AddForce(cam.position + cam.forward * ballForce);
-            StartCoroutine(setThrowingToFalse());
+            StartCoroutine(throwAnimation());
+            StartCoroutine(throwBall());
         }
     }
-    
-    
-    private IEnumerator<WaitForSeconds> setThrowingToFalse()
+
+
+    private IEnumerator<WaitForSeconds> throwAnimation()
     {
         _animator.SetBool("isThrowing", true);
         yield return new WaitForSeconds(GetThrowingAnimClipSeconds());
         _animator.SetBool("isThrowing", false);
     }
-    
-    
+
+    private IEnumerator<WaitForSeconds> throwBall()
+    {
+        if (isThrowing) yield break;
+        isThrowing = true;
+        var newBall = Instantiate(ball);
+        var newRb = newBall.GetComponent<Rigidbody>();
+        var sec = GetThrowingAnimClipSeconds();
+        yield return new WaitForSeconds(sec / 2);
+        newBall.transform.position = cam.position + cam.forward * 5;
+        newBall.SetActive(true);
+        newRb.useGravity = true;
+        newRb.AddForce(Vector3.up + cam.forward * ballForce);
+        isThrowing = false;
+    }
+
     public float GetThrowingAnimClipSeconds()
     {
-        AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
-        foreach(AnimationClip clip in clips)
-        {
-            switch(clip.name)
+        var clips = _animator.runtimeAnimatorController.animationClips;
+        foreach (var clip in clips)
+            switch (clip.name)
             {
                 case "Throw":
                     return clip.length;
-                default:
-                    break;
             }
-        }
+
         throw new Exception("Clip not found");
-    } 
-    
+    }
 }
