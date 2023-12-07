@@ -6,15 +6,14 @@ using board;
 using game;
 using UnityEngine;
 
-
 namespace ui
 {
     public class BoardDrawer
     {
+        private const int numberOfWalls = 3;
         private readonly Board board;
         private readonly List<List<GameObject>> cells = new();
         private readonly Prefabs prefabs;
-        private const int numberOfWalls = 3;
 
         public BoardDrawer(Prefabs prefabs, Game game)
         {
@@ -46,6 +45,7 @@ namespace ui
                 wall.transform.parent = gameObject.transform;
             }
         }
+
         private void AddBoard(GameObject gameObject)
         {
             var boardSize = board.GetRectangleOfBoard();

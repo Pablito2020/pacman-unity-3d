@@ -24,16 +24,16 @@ namespace game
                 var column = random.Next(board.GetColumns());
                 var position = new Position(row, column);
                 if (board.Get(position) == Cell.WALL) continue;
-                if (walls.Any((tuple) => Equals(tuple.Item1, position) || Equals(tuple.Item2, position))) continue;
+                if (walls.Any(tuple => Equals(tuple.Item1, position) || Equals(tuple.Item2, position))) continue;
                 var neighbours = board.GetNeighbours(position);
-                var validPositions = neighbours.Where((pos) => board.Get(pos) != Cell.WALL).ToList();
+                var validPositions = neighbours.Where(pos => board.Get(pos) != Cell.WALL).ToList();
                 if (validPositions.Count == 0) continue;
                 var neighbour = validPositions[random.Next(validPositions.Count)];
-                if (walls.Any((tuple) => Equals(tuple.Item1, neighbour) || Equals(tuple.Item2, neighbour))) continue;
+                if (walls.Any(tuple => Equals(tuple.Item1, neighbour) || Equals(tuple.Item2, neighbour))) continue;
                 walls.Add(new Tuple<Position, Position>(position, neighbour));
             }
+
             return walls;
         }
-        
     }
 }

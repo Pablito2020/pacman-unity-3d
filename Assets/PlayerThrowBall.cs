@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class PlayerThrowBall : MonoBehaviour
     public Transform cam;
     private readonly float ballForce = 600f;
     private Animator _animator;
-    private bool isThrowing = false;
+    private bool isThrowing;
 
     // Start is called before the first frame update
     private void Start()

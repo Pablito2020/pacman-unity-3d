@@ -35,7 +35,8 @@ public class GameUI : MonoBehaviour
         wallSquare.SetActive(false);
         foodSquare.SetActive(false);
         bigFood.SetActive(false);
-        _prefabs = new Prefabs(corridorSquare, wallSquare, foodSquare, bigFood, player, breakableWallSquare, InstantiateObject,
+        _prefabs = new Prefabs(corridorSquare, wallSquare, foodSquare, bigFood, player, breakableWallSquare,
+            InstantiateObject,
             DestroyObject);
         GenerateGame();
         Fruit.OnFruitEaten += () =>
