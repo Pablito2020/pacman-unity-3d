@@ -1,4 +1,3 @@
-using System;
 using agent;
 using board;
 using JetBrains.Annotations;
@@ -38,8 +37,16 @@ public class GameUI : MonoBehaviour
         _prefabs = new Prefabs(corridorSquare, wallSquare, foodSquare, bigFood, player, InstantiateObject,
             DestroyObject);
         GenerateGame();
-        Fruit.OnFruitEaten += () => { foodEaten += 1; Debug.LogWarning("Counter: " + foodEaten +  " game: " + _game.GetFood());};
-        BigFruit.OnBigFruitEaten += () => { bigFoodEaten += 1; Debug.LogWarning("Counter: " + bigFoodEaten +  " game: " + _game.GetBigFood());};
+        Fruit.OnFruitEaten += () =>
+        {
+            foodEaten += 1;
+            Debug.LogWarning("Counter: " + foodEaten + " game: " + _game.GetFood());
+        };
+        BigFruit.OnBigFruitEaten += () =>
+        {
+            bigFoodEaten += 1;
+            Debug.LogWarning("Counter: " + bigFoodEaten + " game: " + _game.GetBigFood());
+        };
     }
 
     private void Update()

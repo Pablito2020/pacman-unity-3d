@@ -16,6 +16,7 @@ public class InterfaceScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (_animator.GetBool("isThrowing")) return;
         Rotate();
         Walk();
     }
