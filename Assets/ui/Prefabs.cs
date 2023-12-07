@@ -12,8 +12,9 @@ namespace ui
         public readonly Func<GameObject, GameObject> Instantiate;
         public readonly Transform Player;
         public readonly GameObject Wall;
+        public readonly GameObject BreakableWall;
 
-        public Prefabs(Plane corridor, GameObject wall, GameObject food, GameObject bigFood, Transform player,
+        public Prefabs(Plane corridor, GameObject wall, GameObject food, GameObject bigFood, Transform player, GameObject breakableWall,
             Func<GameObject, GameObject> instantiate, Action<GameObject> destroy)
         {
             Corridor = corridor;
@@ -23,6 +24,7 @@ namespace ui
             Player = player;
             Instantiate = instantiate;
             Destroy = destroy;
+            BreakableWall = breakableWall;
         }
     }
 }

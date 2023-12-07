@@ -16,6 +16,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] public GameObject wallSquare;
     [SerializeField] public GameObject foodSquare;
     [SerializeField] public GameObject bigFood;
+    [SerializeField] public GameObject breakableWallSquare;
     [SerializeField] public Transform player;
 
     [CanBeNull] private GameDrawer _game;
@@ -34,7 +35,7 @@ public class GameUI : MonoBehaviour
         wallSquare.SetActive(false);
         foodSquare.SetActive(false);
         bigFood.SetActive(false);
-        _prefabs = new Prefabs(corridorSquare, wallSquare, foodSquare, bigFood, player, InstantiateObject,
+        _prefabs = new Prefabs(corridorSquare, wallSquare, foodSquare, bigFood, player, breakableWallSquare, InstantiateObject,
             DestroyObject);
         GenerateGame();
         Fruit.OnFruitEaten += () =>

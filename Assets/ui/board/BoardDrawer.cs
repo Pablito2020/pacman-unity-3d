@@ -6,6 +6,7 @@ using board;
 using game;
 using UnityEngine;
 
+
 namespace ui
 {
     public class BoardDrawer
@@ -13,6 +14,7 @@ namespace ui
         private readonly Board board;
         private readonly List<List<GameObject>> cells = new();
         private readonly Prefabs prefabs;
+        private const int numberOfWalls = 3;
 
         public BoardDrawer(Prefabs prefabs, Game game)
         {
@@ -23,6 +25,7 @@ namespace ui
         public void Draw(GameObject gameObject)
         {
             AddFloor(gameObject);
+            AddBreakableWalls(gameObject);
             AddBoard(gameObject);
         }
 
@@ -32,6 +35,17 @@ namespace ui
             prefabs.Corridor.Translate(CellPositionCalculator.FromFloor(new Position(0, 0), boardSize));
         }
 
+        private void AddBreakableWalls(GameObject gameObject)
+        {
+            var walls = new Walls(board);
+            var randomWalls = walls.GetRandomWalls(numberOfWalls);
+            foreach (var (position, neighbour) in randomWalls)
+            {
+                var wall = prefabs.Instantiate(prefabs.BreakableWall);
+                wall.transform.position = CellPositionCalculator.CalculateWall(position, neighbour);
+                wall.transform.parent = gameObject.transform;
+            }
+        }
         private void AddBoard(GameObject gameObject)
         {
             var boardSize = board.GetRectangleOfBoard();
