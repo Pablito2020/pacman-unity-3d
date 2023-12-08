@@ -56,7 +56,7 @@ namespace ui
             var neighbourRow = neighbour.Row * CellSize + CellSize / 2;
             var x = (column + neighbourColumn) / 2;
             var z = (row + neighbourRow) / 2;
-            return new Vector3(x, 4, z);
+            return new Vector3(x, 0, z);
         }
     }
 }
