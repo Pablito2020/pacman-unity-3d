@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
+    public delegate void GameFinished();
+
     [SerializeField] private int MAX_AGENTS = 4;
     [SerializeField] public int MAX_STEPS_AGENT = 300;
     [SerializeField] public int ROWS = 10;
@@ -28,12 +30,6 @@ public class GameUI : MonoBehaviour
 
     [SerializeField] public Plane corridorSquare;
     private int foodEaten;
-
-    
-    
-        public delegate void GameFinished();
-
-        public static event GameFinished onGameFinished;
 
     private void Start()
     {
@@ -62,6 +58,8 @@ public class GameUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) GenerateGame();
         if (_game != null && bigFoodEaten == _game.GetBigFood() && foodEaten == _game.GetFood()) GenerateGame();
     }
+
+    public static event GameFinished onGameFinished;
 
     private void GenerateGame()
     {

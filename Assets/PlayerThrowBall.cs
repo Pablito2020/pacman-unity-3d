@@ -7,8 +7,8 @@ public class PlayerThrowBall : MonoBehaviour
     public GameObject ball;
     public Transform cam;
     private readonly float ballForce = 600f;
-    private Animator _animator;
     private readonly List<GameObject> balls = new();
+    private Animator _animator;
     private bool isThrowing;
 
     // Start is called before the first frame update

@@ -24,6 +24,8 @@ public class InterfaceScript : MonoBehaviour
     private void Rotate()
     {
         transform.Rotate(getAngularRotation());
+        _animator.SetBool("isRotatingRight", Input.GetKey("d"));
+        _animator.SetBool("isRotatingLeft", Input.GetKey("a"));
     }
 
 
@@ -42,6 +44,6 @@ public class InterfaceScript : MonoBehaviour
 
     private static bool IsGoingForward()
     {
-        return Input.GetKey("w");
+        return Input.GetKey("w") || Input.GetKey("s");
     }
 }
