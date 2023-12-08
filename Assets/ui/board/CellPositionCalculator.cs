@@ -6,7 +6,7 @@ namespace ui
     public static class CellPositionCalculator
     {
         private const int CellSize = 8;
-        private const int CellHeight = 8;
+        private const int CellHeight = 1;
 
         public static Vector3 From(Position position, Rectangle board)
         {
