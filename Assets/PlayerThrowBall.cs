@@ -18,12 +18,6 @@ public class PlayerThrowBall : MonoBehaviour
         GameUI.onGameFinished += cleanBalls;
     }
 
-    private void cleanBalls()
-    {
-            foreach (var ball in balls) Destroy(ball);
-            balls.Clear();
-    }
-
     // Update is called once per frame
     private void Update()
     {
@@ -33,10 +27,13 @@ public class PlayerThrowBall : MonoBehaviour
             StartCoroutine(throwBall());
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            cleanBalls();
-        }
+        if (Input.GetKeyDown(KeyCode.Q)) cleanBalls();
+    }
+
+    private void cleanBalls()
+    {
+        foreach (var ball in balls) Destroy(ball);
+        balls.Clear();
     }
 
 
@@ -52,7 +49,6 @@ public class PlayerThrowBall : MonoBehaviour
         if (isThrowing) yield break;
         isThrowing = true;
         var newBall = Instantiate(ball);
-        balls.Add(newBall);
         var newRb = newBall.GetComponent<Rigidbody>();
         var sec = GetThrowingAnimClipSeconds();
         yield return new WaitForSeconds(sec / 2);
@@ -60,6 +56,7 @@ public class PlayerThrowBall : MonoBehaviour
         newBall.SetActive(true);
         newRb.useGravity = true;
         newRb.AddForce(Vector3.up + cam.forward * ballForce);
+        balls.Add(newBall);
         isThrowing = false;
     }
 

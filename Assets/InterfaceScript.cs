@@ -47,7 +47,7 @@ public class InterfaceScript : MonoBehaviour
     {
         return Input.GetKey("w");
     }
-    
+
     private static bool IsGoingBackwards()
     {
         return Input.GetKey("s");
