@@ -49,5 +49,10 @@ namespace board
             if (obj is Position other) return Row == other.Row && Column == other.Column;
             return false;
         }
+        
+        public override string ToString()
+        {
+            return $"({Row}, {Column})";
+        }
     }
 }

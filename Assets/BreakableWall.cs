@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,4 +16,11 @@ public class BreakableWall : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (!other.gameObject.name.Contains("Ball")) return;
+        Destroy(gameObject);
+    }
+
 }

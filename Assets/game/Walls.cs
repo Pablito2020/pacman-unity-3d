@@ -23,14 +23,22 @@ namespace game
                 var row = random.Next(board.GetRows());
                 var column = random.Next(board.GetColumns());
                 var position = new Position(row, column);
+                if (walls.Any((tuple) => Equals(tuple.Item2, position) || Equals(tuple.Item1, position))) continue;
                 if (board.Get(position) == Cell.WALL) continue;
-                if (walls.Any(tuple => Equals(tuple.Item1, position) || Equals(tuple.Item2, position))) continue;
                 var neighbours = board.GetNeighbours(position);
-                var validPositions = neighbours.Where(pos => board.Get(pos) != Cell.WALL).ToList();
-                if (validPositions.Count == 0) continue;
-                var neighbour = validPositions[random.Next(validPositions.Count)];
-                if (walls.Any(tuple => Equals(tuple.Item1, neighbour) || Equals(tuple.Item2, neighbour))) continue;
-                walls.Add(new Tuple<Position, Position>(position, neighbour));
+                var neighboursAreWalls = neighbours.Count((pos) => board.Get(pos) == Cell.WALL);
+                if (neighboursAreWalls != 2) continue;
+                var w = neighbours.Where((pos) => board.Get(pos) == Cell.WALL).ToList();
+                foreach (var neighbour in w)
+                {
+                    var wallsExceptThis =  w.Where((pos) => !Equals(pos, neighbour)).ToList();
+                    if (wallsExceptThis.Any((pos) => pos.Column == neighbour.Column || pos.Row == neighbour.Row))
+                    {
+                        var other = wallsExceptThis.Find((pos) => pos.Column == neighbour.Column || pos.Row == neighbour.Row);
+                        walls.Add(new Tuple<Position, Position>(neighbour, other));
+                        break;
+                    }
+                }
             }
 
             return walls;

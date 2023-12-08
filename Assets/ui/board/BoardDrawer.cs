@@ -13,6 +13,7 @@ namespace ui
         private const int numberOfWalls = 3;
         private readonly Board board;
         private readonly List<List<GameObject>> cells = new();
+        private readonly List<GameObject> walls = new();
         private readonly Prefabs prefabs;
 
         public BoardDrawer(Prefabs prefabs, Game game)
@@ -42,7 +43,10 @@ namespace ui
             {
                 var wall = prefabs.Instantiate(prefabs.BreakableWall);
                 wall.transform.position = CellPositionCalculator.CalculateWall(position, neighbour);
+                if (position.Column == neighbour.Column)
+                    wall.transform.Rotate(0, 90, 0);
                 wall.transform.parent = gameObject.transform;
+                this.walls.Add(wall);
             }
         }
 
@@ -96,6 +100,8 @@ namespace ui
         {
             cells.ForEach(row => row.ForEach(cell => prefabs.Destroy(cell)));
             cells.Clear();
+            walls.ForEach(wall => prefabs.Destroy(wall));
+            walls.Clear();
         }
     }
 }

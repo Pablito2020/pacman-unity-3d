@@ -1,3 +1,4 @@
+using System;
 using board;
 using UnityEngine;
 
@@ -50,13 +51,13 @@ namespace ui
 
         public static Vector3 CalculateWall(Position position, Position neighbour)
         {
-            var column = position.Column * CellSize + CellSize / 2;
-            var row = position.Row * CellSize + CellSize / 2;
-            var neighbourColumn = neighbour.Column * CellSize + CellSize / 2;
-            var neighbourRow = neighbour.Row * CellSize + CellSize / 2;
-            var x = (column + neighbourColumn) / 2;
-            var z = (row + neighbourRow) / 2;
-            return new Vector3(x, 4, z);
+                var column = position.Column * CellSize + CellSize / 2;
+                var row = position.Row * CellSize + CellSize / 2;
+                var neighbourColumn = neighbour.Column * CellSize + CellSize / 2;
+                var neighbourRow = neighbour.Row * CellSize + CellSize / 2;
+                var x = (column + neighbourColumn) / 2;
+                var z = (row + neighbourRow) / 2; 
+                return new Vector3(x, 4, z);
         }
     }
 }
