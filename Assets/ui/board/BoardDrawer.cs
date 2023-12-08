@@ -13,8 +13,8 @@ namespace ui
         private const int numberOfWalls = 3;
         private readonly Board board;
         private readonly List<List<GameObject>> cells = new();
-        private readonly List<GameObject> walls = new();
         private readonly Prefabs prefabs;
+        private readonly List<GameObject> walls = new();
 
         public BoardDrawer(Prefabs prefabs, Game game)
         {
@@ -42,6 +42,7 @@ namespace ui
             foreach (var (position, neighbour) in randomWalls)
             {
                 var wall = prefabs.Instantiate(prefabs.BreakableWall);
+                wall.SetActive(true);
                 wall.transform.position = CellPositionCalculator.CalculateWall(position, neighbour);
                 if (position.Column == neighbour.Column)
                     wall.transform.Rotate(0, 90, 0);

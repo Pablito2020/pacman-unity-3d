@@ -1,20 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BreakableWall : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 
     private void OnCollisionEnter(Collision other)
@@ -22,5 +17,4 @@ public class BreakableWall : MonoBehaviour
         if (!other.gameObject.name.Contains("Ball")) return;
         Destroy(gameObject);
     }
-
 }

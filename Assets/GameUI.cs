@@ -29,12 +29,18 @@ public class GameUI : MonoBehaviour
     [SerializeField] public Plane corridorSquare;
     private int foodEaten;
 
+    
+    
+        public delegate void GameFinished();
+
+        public static event GameFinished onGameFinished;
 
     private void Start()
     {
         wallSquare.SetActive(false);
         foodSquare.SetActive(false);
         bigFood.SetActive(false);
+        breakableWallSquare.SetActive(false);
         _prefabs = new Prefabs(corridorSquare, wallSquare, foodSquare, bigFood, player, breakableWallSquare,
             InstantiateObject,
             DestroyObject);
@@ -65,6 +71,7 @@ public class GameUI : MonoBehaviour
         _game.StartNewGame(gameObject);
         foodEaten = 0;
         bigFoodEaten = 0;
+        onGameFinished?.Invoke();
     }
 
     private Maze GetRandomMaze()

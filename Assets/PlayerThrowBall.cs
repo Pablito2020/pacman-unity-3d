@@ -8,12 +8,18 @@ public class PlayerThrowBall : MonoBehaviour
     public Transform cam;
     private readonly float ballForce = 600f;
     private Animator _animator;
+    private readonly List<GameObject> balls = new();
     private bool isThrowing;
 
     // Start is called before the first frame update
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        GameUI.onGameFinished += () =>
+        {
+            foreach (var ball in balls) Destroy(ball);
+            balls.Clear();
+        };
     }
 
     // Update is called once per frame
@@ -39,6 +45,7 @@ public class PlayerThrowBall : MonoBehaviour
         if (isThrowing) yield break;
         isThrowing = true;
         var newBall = Instantiate(ball);
+        balls.Add(newBall);
         var newRb = newBall.GetComponent<Rigidbody>();
         var sec = GetThrowingAnimClipSeconds();
         yield return new WaitForSeconds(sec / 2);
