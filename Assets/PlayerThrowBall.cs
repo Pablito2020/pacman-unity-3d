@@ -15,20 +15,27 @@ public class PlayerThrowBall : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        GameUI.onGameFinished += () =>
-        {
+        GameUI.onGameFinished += cleanBalls;
+    }
+
+    private void cleanBalls()
+    {
             foreach (var ball in balls) Destroy(ball);
             balls.Clear();
-        };
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown("f") && !_animator.GetBool("isThrowing"))
+        if (Input.GetKeyDown(KeyCode.Space) && !_animator.GetBool("isThrowing"))
         {
             StartCoroutine(throwAnimation());
             StartCoroutine(throwBall());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            cleanBalls();
         }
     }
 
