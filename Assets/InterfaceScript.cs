@@ -40,10 +40,16 @@ public class InterfaceScript : MonoBehaviour
         var y = Input.GetAxis("Vertical");
         transform.Translate(0, 0, y * Time.deltaTime * WalkSpeed);
         _animator.SetBool("isWalking", IsGoingForward());
+        _animator.SetBool("isGoingBack", IsGoingBackwards());
     }
 
     private static bool IsGoingForward()
     {
-        return Input.GetKey("w") || Input.GetKey("s");
+        return Input.GetKey("w");
+    }
+    
+    private static bool IsGoingBackwards()
+    {
+        return Input.GetKey("s");
     }
 }
