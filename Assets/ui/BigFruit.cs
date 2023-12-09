@@ -6,7 +6,7 @@ namespace ui
     public class BigFruit : MonoBehaviour
     {
         public delegate void BigFruitEaten();
-        
+
         private AudioSource audioSource;
 
         private void Start()
@@ -19,16 +19,16 @@ namespace ui
             OnBigFruitEaten?.Invoke();
             StartCoroutine(PlayAndDestroy());
         }
-        
-        
-        IEnumerator<WaitForSeconds> PlayAndDestroy()
-        { 
-            var waitValue = (audioSource.clip.length/2);
+
+
+        private IEnumerator<WaitForSeconds> PlayAndDestroy()
+        {
+            var waitValue = audioSource.clip.length / 2;
             audioSource.Play();
             gameObject.transform.localScale = new Vector3(0, 0, 0);
             yield return new WaitForSeconds(waitValue);
             Destroy(gameObject);
-        } 
+        }
 
         public static event BigFruitEaten OnBigFruitEaten;
     }

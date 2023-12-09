@@ -106,7 +106,7 @@ public class GameUI : MonoBehaviour
         audioSource.Pause();
         Time.timeScale = 0;
     }
-    
+
     public void ResumeGame()
     {
         Time.timeScale = 1;

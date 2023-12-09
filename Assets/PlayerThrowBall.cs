@@ -9,9 +9,9 @@ public class PlayerThrowBall : MonoBehaviour
     private readonly float ballForce = 600f;
     private readonly List<GameObject> balls = new();
     private Animator _animator;
-    private bool isThrowing;
-    
+
     private AudioSource audioSource;
+    private bool isThrowing;
 
     // Start is called before the first frame update
     private void Start()
