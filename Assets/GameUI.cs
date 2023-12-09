@@ -3,6 +3,7 @@ using board;
 using JetBrains.Annotations;
 using ui;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class GameUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) GenerateGame();
+        if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene("MenuScene");
         if (_game != null && bigFoodEaten == _game.GetBigFood() && foodEaten == _game.GetFood()) GenerateGame();
     }
 
