@@ -33,7 +33,7 @@ public class PlayerThrowBall : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q)) cleanBalls();
     }
 
-    private void cleanBalls()
+    public void cleanBalls()
     {
         foreach (var ball in balls) Destroy(ball);
         balls.Clear();
