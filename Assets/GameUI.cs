@@ -21,6 +21,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] public GameObject bigFood;
     [SerializeField] public GameObject breakableWallSquare;
     [SerializeField] public Transform player;
+    [SerializeField] public GameObject menuBackground;
 
     [CanBeNull] private GameDrawer _game;
     private Prefabs _prefabs;
@@ -58,6 +59,7 @@ public class GameUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R)) GenerateGame();
         if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene("MenuScene");
+        if (Input.GetKeyDown(KeyCode.P)) PauseGame();
         if (_game != null && bigFoodEaten == _game.GetBigFood() && foodEaten == _game.GetFood()) GenerateGame();
     }
 
@@ -94,5 +96,16 @@ public class GameUI : MonoBehaviour
     private static void DestroyObject(GameObject obj)
     {
         Destroy(obj);
+    }
+
+    private void PauseGame()
+    {
+        menuBackground.SetActive(true);
+        Time.timeScale = 0;
+    }
+    
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 }
