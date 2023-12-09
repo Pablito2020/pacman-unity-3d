@@ -27,6 +27,7 @@ public class GameUI : MonoBehaviour
     private Prefabs _prefabs;
 
 
+    private AudioSource audioSource;
     private int bigFoodEaten;
 
 
@@ -39,6 +40,7 @@ public class GameUI : MonoBehaviour
         foodSquare.SetActive(false);
         bigFood.SetActive(false);
         breakableWallSquare.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
         _prefabs = new Prefabs(corridorSquare, wallSquare, foodSquare, bigFood, player, breakableWallSquare,
             InstantiateObject,
             DestroyObject);
@@ -101,11 +103,13 @@ public class GameUI : MonoBehaviour
     private void PauseGame()
     {
         menuBackground.SetActive(true);
+        audioSource.Pause();
         Time.timeScale = 0;
     }
     
     public void ResumeGame()
     {
         Time.timeScale = 1;
+        audioSource.Play();
     }
 }

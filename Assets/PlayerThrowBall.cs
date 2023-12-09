@@ -10,11 +10,14 @@ public class PlayerThrowBall : MonoBehaviour
     private readonly List<GameObject> balls = new();
     private Animator _animator;
     private bool isThrowing;
+    
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         GameUI.onGameFinished += cleanBalls;
     }
 
@@ -52,6 +55,7 @@ public class PlayerThrowBall : MonoBehaviour
         var newRb = newBall.GetComponent<Rigidbody>();
         var sec = GetThrowingAnimClipSeconds();
         yield return new WaitForSeconds(sec / 2);
+        audioSource.Play();
         newBall.transform.position = cam.position + cam.forward * 5;
         newBall.SetActive(true);
         newRb.useGravity = true;
